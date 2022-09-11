@@ -42,6 +42,5 @@ jobs:
         with:
           cdk_subcommand: 'deploy'
           working_dir: ./cdk
-          cdk_stack: 'stack1'
           cdk_args: '--require-approval never'
           actions_comment: false
