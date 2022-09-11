@@ -26,6 +26,5 @@ jobs:
           docker buildx build --platform=linux/amd64 -t sample-nextjs .
           docker tag sample-nextjs:latest public.ecr.aws/m0z6o0u5/sample-nextjs:latest
           docker push public.ecr.aws/m0z6o0u5/sample-nextjs:latest
-          cd cdk
           cdk synth
           cdk deploy
