@@ -7,10 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: "16"
       - name: Install NPM dependencies
         run: npm install
 
@@ -26,5 +27,10 @@ jobs:
           docker buildx build --platform=linux/amd64 -t sample-nextjs .
           docker tag sample-nextjs:latest public.ecr.aws/m0z6o0u5/sample-nextjs:latest
           docker push public.ecr.aws/m0z6o0u5/sample-nextjs:latest
-          cdk synth
-          cdk deploy
+          echo "Pushed the files into repo"
+      - name: Install yarn
+        run: yarn
+      - name: CDK Synth
+        run: yarn cdk synth
+      - name: CDK Deploy
+        run: yarn cdk deploy --all --require-approval never
