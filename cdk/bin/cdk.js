@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const cdk = require('@aws-cdk/core');
-const { SNJScdkStack } = require('../lib/cdk-stack');
+const { SampleCdkStack } = require('../lib/cdk-stack');
 
 const app = new cdk.App();
-new SNJScdkStack(app, 'SNJScdkStack', {
+new SampleCdkStack(app, 'SampleCdkStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

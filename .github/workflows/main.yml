@@ -21,27 +21,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
+      
       - name: Clear cache
         run: |
-          docker builder prune -f
-      # - name: Delete stack
-      #   uses: youyo/aws-cdk-github-actions@v2
-      #   with:
-      #     cdk_subcommand: 'destroy'
-      #     cdk_args: '--require-approval never'
-      #     cdk_version: '1.171.0'
-      #     working_dir: ./cdk
+          docker builder prune -a
+      
+
           
       
       - name: images build
         run: |
           docker buildx build --platform=linux/amd64 -t sample-nextjs .
-          docker tag sample-nextjs:latest 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
       - name: push to ecr
         run: |
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 574935813360.dkr.ecr.ap-south-1.amazonaws.com
+          docker tag sample-nextjs:latest 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
           docker push 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
-          echo "Pushed the files into repo"
   
       - name: cdk synth
         uses: youyo/aws-cdk-github-actions@v2
