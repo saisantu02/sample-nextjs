@@ -34,9 +34,9 @@ jobs:
           docker buildx build --platform=linux/amd64 -t sample-nextjs .
       - name: push to ecr
         run: |
-          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 574935813360.dkr.ecr.ap-south-1.amazonaws.com
-          docker tag sample-nextjs:latest 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
-          docker push 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m0z6o0u5
+          docker tag sample-nextjs:latest public.ecr.aws/m0z6o0u5/sample-nextjs:latest
+          docker push public.ecr.aws/m0z6o0u5/sample-nextjs:latest
   
       - name: cdk synth
         uses: youyo/aws-cdk-github-actions@v2

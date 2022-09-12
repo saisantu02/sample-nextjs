@@ -45,7 +45,7 @@ class SJSCdkStack extends cdk.Stack {
       "sample-fargate-task-container",
       {
         image: ecs.ContainerImage.fromRegistry(
-          "574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs"
+          "public.ecr.aws/m0z6o0u5/sample-nextjs"
         ),
         logging: new ecs.AwsLogDriver({
           streamPrefix: "sample-fargate"
