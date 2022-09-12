@@ -28,6 +28,7 @@ jobs:
         uses: youyo/aws-cdk-github-actions@v2
         with:
           cdk_subcommand: 'destroy'
+          cdk_args: '--require-approval never'
           cdk_version: '1.171.0'
           working_dir: ./cdk
           
