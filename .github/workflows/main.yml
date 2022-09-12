@@ -39,6 +39,12 @@ jobs:
           docker tag sample-nextjs:latest 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
       - name: push to ecr
         run: |
+          aws ecr get-login-password \
+                  --region <region> \
+              | docker login \
+                  --username AWS \
+                  --password-stdin 574935813360.dkr.ecr.ap-south-1.amazonaws.com
+
           docker push 574935813360.dkr.ecr.ap-south-1.amazonaws.com/sample-nextjs:latest
           echo "Pushed the files into repo"
   
