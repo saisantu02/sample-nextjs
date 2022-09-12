@@ -14,7 +14,7 @@ const props = {
   }
 };
 
-class SampleCdkStack extends cdk.Stack {
+class SJSCdkStack extends cdk.Stack {
   /**
    *
    * @param {cdk.Construct} scope
@@ -86,4 +86,4 @@ class SampleCdkStack extends cdk.Stack {
   }
 }
 
-module.exports = { SampleCdkStack };
+module.exports = { SJSCdkStack };
