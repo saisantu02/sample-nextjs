@@ -27,8 +27,8 @@ jobs:
       - name: Delete images
         run: |
           aws ecr batch-delete-image \
-              --repository-name ubuntu \
-              --image-ids imageTag=precise
+              --repository-name sample-nextjs \
+              --image-ids imageTag=latest
       - name: images build and push
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m0z6o0u5
