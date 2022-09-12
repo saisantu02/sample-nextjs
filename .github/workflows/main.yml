@@ -24,20 +24,23 @@ jobs:
       - name: Clear cache
         run: |
           docker builder prune -f
-      - name: Delete images
-        run: |
-          aws ecr batch-delete-image \
-              --repository-name sample-nextjs \
-              --image-ids imageTag=latest
-      - name: images build and push
+      - name: Delete stack
+        uses: youyo/aws-cdk-github-actions@v2
+        with:
+          cdk_subcommand: 'destroy'
+          cdk_version: '1.171.0'
+          working_dir: ./cdk
+          
+      
+      - name: images build
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m0z6o0u5
           docker buildx build --platform=linux/amd64 -t sample-nextjs .
           docker tag sample-nextjs:latest public.ecr.aws/m0z6o0u5/sample-nextjs:latest
+      - name: push to ecr
+        run: |
           docker push public.ecr.aws/m0z6o0u5/sample-nextjs:latest
           echo "Pushed the files into repo"
-          cd cdk
-          echo "in cdk (if)"
   
       - name: cdk synth
         uses: youyo/aws-cdk-github-actions@v2
